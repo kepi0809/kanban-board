@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <img
-      alt="Guthand logo"
-      src="./assets/logo.png"
-    >
     <kanban-board />
   </div>
 </template>
@@ -14,11 +10,11 @@ import KanbanBoard from './components/KanbanBoard.vue'
 export default {
   name: 'App',
   components: {
-      KanbanBoard
-  }
+    KanbanBoard,
+  },
 }
 </script>
 
 <style lang="scss">
-  @import './assets/app.scss';
+@import './assets/app.scss';
 </style>
