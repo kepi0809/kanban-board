@@ -132,7 +132,8 @@ export default {
         const originalCardIndex = this.cards.findIndex(
           (card) => card.id === this[cardsStatusKey][indexOfElement].id
         )
-        if (originalCardIndex)
+
+        if (originalCardIndex > -1)
           this.cards.splice(originalCardIndex, 1, {
             ...this.cards[originalCardIndex],
             progress: {
