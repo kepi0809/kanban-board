@@ -1,31 +1,15 @@
-<template>
+<template functional>
   <li
-    :id="card.id"
+    :id="props.task.id"
     class="drag-item"
     draggable="true"
     v-bind="$attrs"
     v-on="{
       ...$listeners,
       click: () => {
-        show = true
+        listeners.openTaskModal(props.task)
       },
     }"
-    >{{ card.title }}{{ card.description
-    }}<TaskModal
-      :show="show"
-      :task="card"
-      @dismiss="show = !show"
-      @updateTaskByKey="$emit('updateTaskByKey', $event)"
-  /></li>
+    >{{ props.task.title }}{{ props.task.description }}</li
+  >
 </template>
-
-<script>
-import TaskModal from '@/components/TaskModal.vue'
-export default {
-  components: { TaskModal },
-  props: { card: { type: Object, default: () => ({}) } },
-  data() {
-    return { show: false }
-  },
-}
-</script>

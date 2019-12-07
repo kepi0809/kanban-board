@@ -1,16 +1,23 @@
 <template>
   <div class="drag-container">
+    <p style="color:white">{{ activeTask }}</p>
     <ul class="drag-list">
       <DragColumn
-        v-for="card of tasksGrouppedByStatus"
-        :key="card.title"
-        :title="card.title"
-        :progress="card.progress"
-        :color="card.color"
-        :tasks="card.tasks"
-        @updateTaskByKey="updateTaskByKey"
+        v-for="task of tasksGrouppedByStatus"
+        :key="task.title"
+        :title="task.title"
+        :progress="task.progress"
+        :color="task.color"
+        :tasks="task.tasks"
+        @openTaskModal="activeTask = $event"
       />
     </ul>
+    <TaskModal
+      :show="!!activeTask"
+      :task="activeTask"
+      @dismiss="activeTask = null"
+      @updateTaskByKey="updateTaskByKey($event)"
+    />
   </div>
 </template>
 
@@ -18,12 +25,17 @@
 /* eslint-disable no-console, no-unused-vars, vue/no-unused-components  */
 import DragColumn from '@/components/DragColumn.vue'
 import SingleCard from '@/components/SingleCard.vue'
+import TaskModal from '@/components/TaskModal.vue'
 
 export default {
-  components: { DragColumn, SingleCard },
+  components: {
+    DragColumn,
+    SingleCard,
+    TaskModal,
+  },
   data() {
     return {
-      openedTask: null,
+      activeTask: null,
       tasks: [
         {
           id: 1,
@@ -185,6 +197,8 @@ export default {
       }
     },
     updateTaskByKey({ taskToUpdate, keyValuePair: { key, value } }) {
+      if (this.activeTask)
+        this.activeTask = { ...this.tasks[index], [key]: value }
       const index = this.tasks.findIndex((task) => task.id === taskToUpdate.id)
       this.tasks.splice(index, 1, {
         ...this.tasks[index],

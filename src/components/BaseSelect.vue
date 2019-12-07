@@ -41,23 +41,19 @@
 
 <script>
 import OnClickOutside from '@/components/util/OnClickOutside.vue'
-import Popper from 'popper.js'
 
 export default {
   components: { OnClickOutside },
   props: {
     value: { type: String, default: '' },
     options: { type: Array, default: () => [] },
-    popperReference: { type: Object, default: null },
+    index: { type: Number, default: 0 },
   },
   data() {
     return {
       isOpen: false,
       highlightedIndex: 0,
     }
-  },
-  beforeDestroy() {
-    this.popper.destroy()
   },
   methods: {
     open() {
@@ -67,19 +63,11 @@ export default {
       }
       this.isOpen = true
       this.$nextTick(() => {
-        this.setupPopper()
         this.$refs.search.focus()
+        console.log(this.index)
+        this.highlightedIndex = this.index
         this.scrollToHighlighted()
       })
-    },
-    setupPopper() {
-      if (this.popper === undefined) {
-        this.popper = new Popper(this.popperReference, this.$refs.dropdown, {
-          placement: 'bottom',
-        })
-      } else {
-        this.popper.scheduleUpdate()
-      }
     },
     close() {
       if (!this.isOpen) return
@@ -170,9 +158,6 @@ export default {
   z-index: -1;
   top: -500rem;
   left: -500rem;
-}
-.search-select-search:focus {
-  outline: 0;
 }
 .search-select-options {
   list-style: none;

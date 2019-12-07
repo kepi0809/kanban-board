@@ -1,10 +1,5 @@
 <template>
-  <ModalDialog
-    ref="popperReference"
-    :show="show"
-    :with-close-button="false"
-    @close="dismiss"
-  >
+  <ModalDialog :show="show" :with-close-button="false" @close="dismiss">
     <header class="modal__header">
       <button class="modal__header_button-complete">Mark as Completed</button>
       <button class="modal__header_button-close" @click="dismiss"
@@ -12,17 +7,17 @@
           ><TimesIcon /></IconBase
       ></button>
     </header>
-    <article class="modal__body">
+    <BaseSelect
+      v-if="task"
+      :options="['Backlog', 'In Progress', 'Done']"
+      :value="$options.selectOptions[task.progress.value]"
+      :index="task.progress.value"
+      @selectOption="updateTaskStatus"
+    />
+    <article v-if="task" class="modal__body">
       <InputTextLooking :value="task.title" @input="updateTaskTitle" />
       <TextAreaTextLooking :value="task.description" />
     </article>
-    <footer
-      ><BaseSelect
-        :popper-reference="$refs.popperReference"
-        :options="['Backlog', 'In Progress', 'Done']"
-        :value="$options.selectOptions[task.progress.value]"
-        @selectOption="updateTaskStatus"
-    /></footer>
   </ModalDialog>
 </template>
 

@@ -26,9 +26,9 @@
         v-for="task of props.tasks"
         :id="task.id"
         :key="task.id"
-        :card="task"
+        :task="task"
         draggable="true"
-        @updateTaskByKey="listeners.updateTaskByKey($event)"
+        @openTaskModal="listeners.openTaskModal($event)"
       />
     </ul>
   </li>
