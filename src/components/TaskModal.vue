@@ -93,6 +93,13 @@ export default {
       })
     },
 
+    updateTaskCompleteness(value) {
+      this.$emit('updateTaskByKey', {
+        taskToUpdate: this.task,
+        keyValuePair: { key: 'isCompleted', value },
+      })
+    },
+
     updateTaskStatus(title) {
       const value = this.$options.selectOptions.findIndex(
         (option) => option.toLowerCase() === title.toLowerCase()

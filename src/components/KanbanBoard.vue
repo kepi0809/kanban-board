@@ -39,33 +39,38 @@ export default {
       tasks: [
         {
           id: 1,
-          title: 'Asd',
+          title: 'Title',
           description: 'description',
           progress: { value: 0, title: 'backlog' },
+          isCompleted: false,
         },
         {
           id: 2,
-          title: 'Asd',
+          title: 'Title',
           description: 'description',
           progress: { value: 0, title: 'backlog' },
+          isCompleted: false,
         },
         {
           id: 3,
-          title: 'Asd',
+          title: 'Title',
           description: 'description',
           progress: { value: 0, title: 'backlog' },
+          isCompleted: false,
         },
         {
           id: 4,
-          title: 'Asd',
+          title: 'Title',
           description: 'description',
           progress: { value: 1, title: 'In Progress' },
+          isCompleted: false,
         },
         {
           id: 5,
-          title: 'Asd',
+          title: 'Title',
           description: 'description',
           progress: { value: 2, title: 'Done' },
+          isCompleted: false,
         },
       ],
     }
