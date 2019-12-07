@@ -43,7 +43,11 @@
     </div>
 
     <article v-if="task" class="modal__body">
-      <InputTextLooking :value="task.title" @input="updateTaskTitle" />
+      <InputTextLooking
+        :value="task.title"
+        placeholder="Title … "
+        @input="updateTaskTitle"
+      />
       <TextAreaTextLooking :value="task.description" />
     </article>
   </ModalDialog>
