@@ -1,6 +1,5 @@
 <template>
   <div class="drag-container">
-    <p style="color:white">{{ activeTask }}</p>
     <ul class="drag-list">
       <DragColumn
         v-for="task of tasksGrouppedByStatus"
