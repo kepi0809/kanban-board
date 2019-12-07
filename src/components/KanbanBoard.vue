@@ -2,25 +2,29 @@
   <div class="drag-container">
     <ul class="drag-list">
       <DragColumn
-        v-for="card of cardsGrouppedByStatus"
+        v-for="card of tasksGrouppedByStatus"
         :key="card.title"
         :title="card.title"
         :progress="card.progress"
         :color="card.color"
-        :cards="card.cards"
+        :tasks="card.tasks"
+        @updateTaskByKey="updateTaskByKey"
       />
     </ul>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-console, no-unused-vars */
+/* eslint-disable no-console, no-unused-vars, vue/no-unused-components  */
 import DragColumn from '@/components/DragColumn.vue'
+import SingleCard from '@/components/SingleCard.vue'
+
 export default {
-  components: { DragColumn },
+  components: { DragColumn, SingleCard },
   data() {
     return {
-      cards: [
+      openedTask: null,
+      tasks: [
         {
           id: 1,
           title: 'Asd',
@@ -55,31 +59,31 @@ export default {
     }
   },
   computed: {
-    cardsGrouppedByStatus() {
+    tasksGrouppedByStatus() {
       return [
         {
           title: 'Backlog',
-          cards: this.backlogCards,
+          tasks: this.backlogTasks,
           color: '#998691',
           progress: 0,
         },
         {
           title: 'In Progress',
-          cards: this.inProgressCards,
+          tasks: this.inProgressTasks,
           color: '#e77e51',
           progress: 1,
         },
-        { title: 'Done', cards: this.doneCards, color: '#a9aa88', progress: 2 },
+        { title: 'Done', tasks: this.doneTasks, color: '#a9aa88', progress: 2 },
       ]
     },
-    backlogCards() {
-      return this.cards.filter((card) => card.progress.value === 0)
+    backlogTasks() {
+      return this.tasks.filter((task) => task.progress.value === 0)
     },
-    inProgressCards() {
-      return this.cards.filter((card) => card.progress.value === 1)
+    inProgressTasks() {
+      return this.tasks.filter((task) => task.progress.value === 1)
     },
-    doneCards() {
-      return this.cards.filter((card) => card.progress.value === 2)
+    doneTasks() {
+      return this.tasks.filter((task) => task.progress.value === 2)
     },
   },
   mounted() {
@@ -121,7 +125,7 @@ export default {
         const container = dragged.parentElement.parentElement
         const indexOfElement = this.getNodeIndex(draggedElement)
         const indexOfContainer = this.getNodeIndex(container)
-        const cardsStatusKey = this.getCardsStatusKeyByContainer(
+        const tasksStatusKey = this.getTasksStatusKeyByContainer(
           indexOfContainer
         )
 
@@ -129,23 +133,33 @@ export default {
         if (!wrapper) return
         const targetProgress = Number(wrapper.id[wrapper.id.length - 1])
         if (targetProgress === indexOfContainer) return
-        const originalCardIndex = this.cards.findIndex(
-          (card) => card.id === this[cardsStatusKey][indexOfElement].id
-        )
-
-        if (originalCardIndex > -1)
-          this.cards.splice(originalCardIndex, 1, {
-            ...this.cards[originalCardIndex],
-            progress: {
-              ...this.cards[originalCardIndex].progress,
+        console.log(tasksStatusKey)
+        console.log(indexOfElement)
+        this.updateTaskByKey({
+          taskToUpdate: this[tasksStatusKey][indexOfElement],
+          keyValuePair: {
+            key: 'progress',
+            value: {
+              title: this.getTitleOfTaskStatusByValue(targetProgress),
               value: targetProgress,
             },
-          })
+          },
+        })
       },
       false
     )
   },
   methods: {
+    getTitleOfTaskStatusByValue(statusValue) {
+      switch (statusValue) {
+        case 0:
+          return 'Backlog'
+        case 1:
+          return 'In Progress'
+        case 2:
+          return 'Done'
+      }
+    },
     getNodeIndex(node) {
       let index = 0
       while ((node = node.previousSibling)) {
@@ -160,17 +174,22 @@ export default {
       }
       return null
     },
-    getCardsStatusKeyByContainer(indexOfContainer) {
+    getTasksStatusKeyByContainer(indexOfContainer) {
       switch (indexOfContainer) {
         case 0:
-          return 'backlogCards'
-
+          return 'backlogTasks'
         case 1:
-          return 'inProgressCards'
-
+          return 'inProgressTasks'
         case 2:
-          return 'doneCards'
+          return 'doneTasks'
       }
+    },
+    updateTaskByKey({ taskToUpdate, keyValuePair: { key, value } }) {
+      const index = this.tasks.findIndex((task) => task.id === taskToUpdate.id)
+      this.tasks.splice(index, 1, {
+        ...this.tasks[index],
+        [key]: value,
+      })
     },
   },
 }

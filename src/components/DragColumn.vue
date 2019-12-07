@@ -21,17 +21,15 @@
       </svg>
     </span>
 
-    <!-- <div id="options1" class="drag-options"></div> -->
-
     <ul class="drag-inner-list">
-      <li
-        v-for="card of props.cards"
-        :id="card.id"
-        :key="card.id"
-        class="drag-item"
+      <SingleCard
+        v-for="task of props.tasks"
+        :id="task.id"
+        :key="task.id"
+        :card="task"
         draggable="true"
-        >{{ card.title }}{{ card.description }}</li
-      >
+        @updateTaskByKey="listeners.updateTaskByKey($event)"
+      />
     </ul>
   </li>
 </template>

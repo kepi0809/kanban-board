@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <kanban-board />
+    <portal-target name="modals"></portal-target>
   </div>
 </template>
 

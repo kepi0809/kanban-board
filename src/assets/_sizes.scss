@@ -1,0 +1,41 @@
+// GRID
+$size-grid-padding: 1.3rem;
+
+// CONTENT
+$size-content-width-max: 50rem;
+$size-content-width-min: 25rem;
+
+// INPUTS
+$size-input-padding-vertical: 0.75em;
+$size-input-padding-horizontal: 1em;
+$size-input-padding: $size-input-padding-vertical $size-input-padding-horizontal;
+$size-input-border: 1px;
+$size-input-border-radius: (1em + $size-input-padding-vertical * 2) / 10;
+
+// BUTTONS
+$size-button-padding-vertical: $size-grid-padding / 2;
+$size-button-padding-horizontal: $size-grid-padding / 1.5;
+$size-button-padding: $size-button-padding-vertical
+  $size-button-padding-horizontal;
+
+// stylelint-disable
+$spacing-0: 0;
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-5: 1.25rem;
+$spacing-6: 1.5rem;
+$spacing-8: 2rem;
+$spacing-10: 2.5rem;
+$spacing-12: 3rem;
+$spacing-16: 4rem;
+$spacing-20: 5rem;
+$spacing-24: 6rem;
+$spacing-32: 8rem;
+$spacing-40: 10rem;
+$spacing-48: 12rem;
+$spacing-56: 14rem;
+$spacing-64: 16rem;
+$spacing-px: 1px;
+// stylelint-enable
