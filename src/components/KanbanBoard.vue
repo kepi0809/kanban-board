@@ -203,7 +203,7 @@ export default {
     },
     updateTaskByKey({ taskToUpdate, keyValuePair: { key, value } }) {
       if (this.activeTask)
-        this.activeTask = { ...this.tasks[index], [key]: value }
+        this.activeTask = { ...this.activeTask, [key]: value }
       const index = this.tasks.findIndex((task) => task.id === taskToUpdate.id)
       this.tasks.splice(index, 1, {
         ...this.tasks[index],
