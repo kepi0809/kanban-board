@@ -9,6 +9,7 @@
         :color="task.color"
         :tasks="task.tasks"
         @openTaskModal="activeTask = $event"
+        @addNewTask="tasks.unshift($event)"
       />
     </ul>
     <TaskModal
