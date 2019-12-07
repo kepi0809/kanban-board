@@ -18,18 +18,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets';
 .text-looking-input {
   border: none;
   border-radius: 3px;
-  padding: 0.125rem 0.25rem;
+  color: $text-dark;
+  padding: $spacing-1 $spacing-2;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: $spacing-6;
 
   &:hover {
-    box-shadow: inset 0 0 0 0.5px #9ca6af;
+    box-shadow: inset 0 0 0 $spacing-px / 2 #9ca6af;
   }
   &:focus {
-    box-shadow: inset 0 0 0 1px #9ca6af;
+    box-shadow: inset 0 0 0 $spacing-px #9ca6af;
     outline: none;
   }
 }

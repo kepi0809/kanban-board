@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import '@design';
+@import 'src/assets';
 .modal {
   &--wrapper {
     position: fixed;
@@ -78,42 +78,42 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    // padding: $spacing-4;
+    padding: $spacing-4;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.5);
-    // @include md {
-    //   padding: $spacing-8;
-    // }
+    @include md {
+      padding: $spacing-8;
+    }
   }
 
   position: relative;
-  max-width: 95%;
+  max-width: 80%;
   max-height: 95vh;
-  // padding: $spacing-6;
+  padding: $spacing-2 $spacing-6;
   margin-right: auto;
   margin-left: auto;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #fff;
-  // border-radius: $spacing-1;
+  border-radius: $spacing-1;
   -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11),
     0 5px 15px 0 rgba(0, 0, 0, 0.08);
   box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11),
     0 5px 15px 0 rgba(0, 0, 0, 0.08);
   border-radius: 4px;
 
-  // @include md {
-  //   width: 100%;
-  //   max-width: 45rem;
-  //   padding: $spacing-10;
-  //   margin-top: $spacing-8;
-  // }
+  @include md {
+    width: 100%;
+    max-width: 45rem;
+    padding: $spacing-10;
+    margin-top: $spacing-8;
+  }
 
   &__button-close {
-    // position: absolute;
-    // top: $spacing-6;
-    // right: $spacing-6;
-    // font-size: $spacing-6;
+    position: absolute;
+    top: $spacing-6;
+    right: $spacing-6;
+    font-size: $spacing-6;
     color: black;
     cursor: pointer;
     background-color: transparent;

@@ -1,19 +1,47 @@
 <template>
   <ModalDialog :show="show" :with-close-button="false" @close="dismiss">
     <header class="modal__header">
-      <button class="modal__header_button-complete">Mark as Completed</button>
-      <button class="modal__header_button-close" @click="dismiss"
-        ><IconBase icon-name="Close modal" view-box="0 0 352 512"
-          ><TimesIcon /></IconBase
-      ></button>
+      <button
+        v-if="task"
+        class="modal__header__button modal__header__button-complete"
+        :class="{
+          'modal__header__button-complete-isCompleted': task.isCompleted,
+        }"
+        @click="updateTaskCompleteness(!task.isCompleted)"
+        >{{ task.isCompleted ? 'Completed' : 'Mark as Completed' }}</button
+      >
+      <div class="modal__header-icons">
+        <button
+          class="modal__header__button border-none"
+          @click="$emit('removeTaskById', task)"
+          ><IconBase
+            icon-name="Remove task"
+            view-box="0 0 448 512"
+            width=".7rem"
+            height=".7rem"
+            ><TrashIcon /></IconBase
+        ></button>
+        <button class="modal__header__button border-none" @click="dismiss"
+          ><IconBase
+            icon-name="Close modal"
+            view-box="0 0 320 512"
+            width="1rem"
+            height="1rem"
+            ><TimesIcon /></IconBase
+        ></button>
+      </div>
     </header>
-    <BaseSelect
-      v-if="task"
-      :options="['Backlog', 'In Progress', 'Done']"
-      :value="$options.selectOptions[task.progress.value]"
-      :index="task.progress.value"
-      @selectOption="updateTaskStatus"
-    />
+
+    <div class="modal__select">
+      <BaseSelect
+        v-if="task"
+        :options="['Backlog', 'In Progress', 'Done']"
+        :value="$options.selectOptions[task.progress.value]"
+        :index="task.progress.value"
+        @selectOption="updateTaskStatus"
+      />
+    </div>
+
     <article v-if="task" class="modal__body">
       <InputTextLooking :value="task.title" @input="updateTaskTitle" />
       <TextAreaTextLooking :value="task.description" />
@@ -74,49 +102,60 @@ export default {
 }
 </script>
 
-<style lang="scss" module>
-// @import '@design';
+<style lang="scss" scoped>
+@import 'src/assets';
 
-// .items {
-//   &__heading {
-//     margin-top: 0;
-//   }
+.modal {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: $spacing-1;
+    position: relative;
+    text-align: start;
+    border-bottom: 1px solid lighten($text-dark, 60);
 
-//   &__empty {
-//     padding: $spacing-2 $spacing-32 $spacing-0 $spacing-32;
-//     text-align: center;
-//     &__icon {
-//       width: 100%;
-//       height: 100%;
-//       margin-bottom: $spacing-4;
-//     }
+    &__button {
+      color: $text-dark;
+      cursor: pointer;
 
-//     &__caption {
-//       margin: $spacing-4 0;
-//     }
-//   }
-// }
+      &:focus {
+        outline: none;
+        font-weight: 600;
+      }
 
-// .total {
-//   display: flex;
-//   align-items: baseline;
-//   justify-content: space-between;
+      &.border-none {
+        border: none;
+      }
 
-//   &__heading {
-//     margin: 0;
-//     color: $color-heading-text;
-//   }
-// }
+      &-complete {
+        display: block;
+        border-radius: 4px;
 
-// .checkout {
-//   text-align: right;
+        &-isCompleted {
+          background: $background-green;
+          color: white;
+        }
+      }
+    }
+    &-icons {
+      display: flex;
+      align-items: center;
+    }
+  }
 
-//   &__button {
-//     padding: $spacing-2 $spacing-3;
-//     margin-top: $spacing-4;
-//     color: white;
-//     background: $color-text;
-//     border-radius: 4px;
-//   }
-// }
+  &__select {
+    padding: $spacing-1 0;
+  }
+
+  &__body {
+    margin-top: $spacing-3;
+    > * {
+      width: 100%;
+      &:not(:last-child) {
+        margin-bottom: $spacing-3;
+      }
+    }
+  }
+}
 </style>

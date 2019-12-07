@@ -108,7 +108,7 @@ export default {
       'dragstart',
       function(event) {
         dragged = event.target
-        event.target.style.opacity = 0.5
+        event.target.classList.add('is-moving')
       },
       false
     )
@@ -116,7 +116,7 @@ export default {
     document.addEventListener(
       'dragend',
       function(event) {
-        event.target.style.opacity = ''
+        event.target.classList.remove('is-moving')
       },
       false
     )
@@ -209,20 +209,9 @@ export default {
 }
 </script>
 <style lang="scss">
+@import 'src/assets';
+
 $ease-out: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background: #33363d;
-  color: white;
-  font-family: 'Lato';
-  font-weight: 300;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
 
 ul {
   list-style-type: none;
@@ -232,30 +221,29 @@ ul {
 
 .drag-container {
   max-width: 1000px;
-  margin: 20px auto;
+  margin: $spacing-5 auto;
 }
-
 .drag-list {
-  display: flex;
-  align-items: flex-start;
+  display: block;
 
-  @media (max-width: 690px) {
-    display: block;
+  @include md {
+    display: flex;
+    align-items: flex-start;
   }
 }
 
 .drag-column {
   flex: 1;
-  margin: 0 10px;
+  margin-bottom: $spacing-5;
   position: relative;
   background: rgba(black, 0.2);
   overflow: hidden;
 
-  @media (max-width: 690px) {
-    margin-bottom: 30px;
+  @include md {
+    margin: 0 $spacing-2;
   }
 
-  h2 {
+  > h2 {
     font-size: 0.8rem;
     margin: 0;
     text-transform: uppercase;
@@ -267,23 +255,36 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: $spacing-2;
 }
 
 .drag-inner-list {
-  min-height: 50px;
   color: white;
 }
 
 .drag-item {
-  margin: 10px;
-  height: 100px;
+  margin: $spacing-2;
   background: rgba(black, 0.4);
   transition: $ease-out;
 
   &.is-moving {
-    transform: scale(1.5);
-    background: rgba(black, 0.8);
+    background: rgba(black, 0.7);
+  }
+
+  &.isCompleted {
+    opacity: 0.3;
+  }
+
+  &__title {
+    margin: 0;
+    padding-top: $spacing-2;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  &__description {
+    margin: 0;
+    padding: $spacing-2 0;
   }
 }
 
