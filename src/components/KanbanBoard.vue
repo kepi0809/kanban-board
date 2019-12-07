@@ -17,6 +17,7 @@
       :task="activeTask"
       @dismiss="activeTask = null"
       @updateTaskByKey="updateTaskByKey($event)"
+      @removeTaskById="removeTaskById"
     />
   </div>
 </template>
@@ -209,6 +210,11 @@ export default {
         ...this.tasks[index],
         [key]: value,
       })
+    },
+    removeTaskById(taskToRemove) {
+      if (this.activeTask) this.activeTask = null
+      const index = this.tasks.findIndex((task) => task.id === taskToRemove.id)
+      this.tasks.splice(index, 1)
     },
   },
 }

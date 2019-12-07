@@ -56,6 +56,7 @@
 <script>
 import IconBase from '@/components/svg/IconBase.vue'
 import TimesIcon from '@/components/svg/TimesIcon.vue'
+import TrashIcon from '@/components/svg/TrashIcon.vue'
 import ModalDialog from '@/components/ModalDialog.vue'
 import InputTextLooking from '@/components/InputTextLooking.vue'
 import TextAreaTextLooking from '@/components/TextareaTextLooking.vue'
@@ -68,6 +69,7 @@ export default {
     InputTextLooking,
     TextAreaTextLooking,
     BaseSelect,
+    TrashIcon,
   },
   props: {
     show: { type: Boolean, default: false },
