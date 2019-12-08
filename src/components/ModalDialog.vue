@@ -1,13 +1,13 @@
 <template>
   <portal v-if="show" to="modals">
     <div v-show="show" class="modal--wrapper">
-      <OnClickOutside excluded-class-name="drag-item" :do="dismiss">
+      <OnClickOutside excludedClassName="drag-item" :do="dismiss">
         <div class="modal">
           <button
             v-if="withCloseButton"
             class="modal__button-close"
             @click="dismiss"
-            ><IconBase icon-name="Close modal" view-box="0 0 352 512"
+            ><IconBase iconName="Close modal" viewBox="0 0 352 512"
               ><TimesIcon /></IconBase
           ></button>
           <slot></slot>

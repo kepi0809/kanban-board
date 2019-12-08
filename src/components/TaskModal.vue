@@ -1,5 +1,5 @@
 <template>
-  <ModalDialog :show="show" :with-close-button="false" @close="dismiss">
+  <ModalDialog :show="show" :withCloseButton="false" @close="dismiss">
     <header class="modal__header">
       <button
         v-if="task"
@@ -15,16 +15,16 @@
           class="modal__header__button border-none"
           @click="$emit('removeTaskById', task)"
           ><IconBase
-            icon-name="Remove task"
-            view-box="0 0 448 512"
+            iconName="Remove task"
+            viewBox="0 0 448 512"
             width=".7rem"
             height=".7rem"
             ><TrashIcon /></IconBase
         ></button>
         <button class="modal__header__button border-none" @click="dismiss"
           ><IconBase
-            icon-name="Close modal"
-            view-box="0 0 320 512"
+            iconName="Close modal"
+            viewBox="0 0 320 512"
             width="1rem"
             height="1rem"
             ><TimesIcon /></IconBase
