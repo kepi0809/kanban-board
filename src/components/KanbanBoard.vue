@@ -1,25 +1,32 @@
 <template>
-  <div class="drag-container">
-    <ul class="drag-list">
-      <DragColumn
-        v-for="task of tasksGrouppedByStatus"
-        :key="task.title"
-        :title="task.title"
-        :progress="task.progress"
-        :color="task.color"
-        :tasks="task.tasks"
-        @openTaskModal="activeTask = $event"
-        @addNewTask="tasks.unshift($event)"
+  <HandleDragEvents
+    :backlogTasks="backlogTasks"
+    :inProgressTasks="inProgressTasks"
+    :doneTasks="doneTasks"
+    @updateTaskByKey="updateTaskByKey"
+  >
+    <div class="drag-container">
+      <ul class="drag-list">
+        <DragColumn
+          v-for="task of tasksGrouppedByStatus"
+          :key="task.title"
+          :title="task.title"
+          :progress="task.progress"
+          :color="task.color"
+          :tasks="task.tasks"
+          @openTaskModal="activeTask = $event"
+          @addNewTask="tasks.unshift($event)"
+        />
+      </ul>
+      <TaskModal
+        :show="!!activeTask"
+        :task="activeTask"
+        @dismiss="activeTask = null"
+        @updateTaskByKey="updateTaskByKey($event)"
+        @removeTaskById="removeTaskById"
       />
-    </ul>
-    <TaskModal
-      :show="!!activeTask"
-      :task="activeTask"
-      @dismiss="activeTask = null"
-      @updateTaskByKey="updateTaskByKey($event)"
-      @removeTaskById="removeTaskById"
-    />
-  </div>
+    </div>
+  </HandleDragEvents>
 </template>
 
 <script>
@@ -27,12 +34,14 @@
 import DragColumn from '@/components/DragColumn.vue'
 import SingleCard from '@/components/SingleCard.vue'
 import TaskModal from '@/components/TaskModal.vue'
+import HandleDragEvents from '@/components/util/HandleDragEvents.vue'
 
 export default {
   components: {
     DragColumn,
     SingleCard,
     TaskModal,
+    HandleDragEvents,
   },
   data() {
     return {
@@ -104,105 +113,11 @@ export default {
       return this.tasks.filter((task) => task.progress.value === 2)
     },
   },
-  mounted() {
-    let dragged
-
-    /* events fired on the draggable target */
-    document.addEventListener('drag', function(event) {}, false)
-
-    document.addEventListener(
-      'dragstart',
-      function(event) {
-        dragged = event.target
-        event.target.classList.add('is-moving')
-      },
-      false
-    )
-
-    document.addEventListener(
-      'dragend',
-      function(event) {
-        event.target.classList.remove('is-moving')
-      },
-      false
-    )
-
-    document.addEventListener(
-      'dragover',
-      function(event) {
-        event.preventDefault()
-      },
-      false
-    )
-
-    document.addEventListener(
-      'drop',
-      (event) => {
-        event.preventDefault()
-        const draggedElement = dragged
-        const container = dragged.parentElement.parentElement
-        const indexOfElement = this.getNodeIndex(draggedElement)
-        const indexOfContainer = this.getNodeIndex(container)
-        const tasksStatusKey = this.getTasksStatusKeyByContainer(
-          indexOfContainer
-        )
-
-        const wrapper = this.getParentById(event.toElement, 'drag-column')
-        if (!wrapper) return
-        const targetProgress = Number(wrapper.id[wrapper.id.length - 1])
-        if (targetProgress === indexOfContainer) return
-        this.updateTaskByKey({
-          taskToUpdate: this[tasksStatusKey][indexOfElement],
-          keyValuePair: {
-            key: 'progress',
-            value: {
-              title: this.getTitleOfTaskStatusByValue(targetProgress),
-              value: targetProgress,
-            },
-          },
-        })
-      },
-      false
-    )
-  },
   methods: {
-    getTitleOfTaskStatusByValue(statusValue) {
-      switch (statusValue) {
-        case 0:
-          return 'Backlog'
-        case 1:
-          return 'In Progress'
-        case 2:
-          return 'Done'
-      }
-    },
-    getNodeIndex(node) {
-      let index = 0
-      while ((node = node.previousSibling)) {
-        index++
-      }
-      return index
-    },
-    getParentById(node, className) {
-      if (node.id && node.id.includes('progress')) return node
-      while ((node = node.parentElement)) {
-        if (node.id && node.id.includes('progress')) return node
-      }
-      return null
-    },
-    getTasksStatusKeyByContainer(indexOfContainer) {
-      switch (indexOfContainer) {
-        case 0:
-          return 'backlogTasks'
-        case 1:
-          return 'inProgressTasks'
-        case 2:
-          return 'doneTasks'
-      }
-    },
     updateTaskByKey({ taskToUpdate, keyValuePair: { key, value } }) {
       if (this.activeTask)
         this.activeTask = { ...this.activeTask, [key]: value }
+      console.log(taskToUpdate)
       const index = this.tasks.findIndex((task) => task.id === taskToUpdate.id)
       this.tasks.splice(index, 1, {
         ...this.tasks[index],
