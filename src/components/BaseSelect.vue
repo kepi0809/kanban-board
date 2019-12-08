@@ -64,7 +64,6 @@ export default {
       this.isOpen = true
       this.$nextTick(() => {
         this.$refs.search.focus()
-        console.log(this.index)
         this.highlightedIndex = this.index
         this.scrollToHighlighted()
       })

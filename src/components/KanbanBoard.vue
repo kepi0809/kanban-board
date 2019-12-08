@@ -151,8 +151,6 @@ export default {
         if (!wrapper) return
         const targetProgress = Number(wrapper.id[wrapper.id.length - 1])
         if (targetProgress === indexOfContainer) return
-        console.log(tasksStatusKey)
-        console.log(indexOfElement)
         this.updateTaskByKey({
           taskToUpdate: this[tasksStatusKey][indexOfElement],
           keyValuePair: {
