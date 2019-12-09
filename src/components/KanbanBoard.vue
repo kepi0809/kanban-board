@@ -1,7 +1,6 @@
 <template>
   <div class="drag-container">
     <HandleDragEvents
-      wrapperId="progress"
       :backlogTasks="backlogTasks"
       :inProgressTasks="inProgressTasks"
       :doneTasks="doneTasks"
