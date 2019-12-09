@@ -20,13 +20,7 @@
       >
         <p class="drag-item__description">+</p>
       </li>
-      <SingleCard
-        v-for="task of props.tasks"
-        :key="task.id"
-        :task="task"
-        draggable="true"
-        @openTaskModal="listeners.openTaskModal($event)"
-      />
+      <slot />
     </ul>
   </li>
 </template>

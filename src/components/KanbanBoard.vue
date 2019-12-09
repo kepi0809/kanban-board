@@ -8,15 +8,21 @@
     <div class="drag-container">
       <ul class="drag-list">
         <DragColumn
-          v-for="task of tasksGrouppedByStatus"
-          :key="task.title"
-          :title="task.title"
-          :progress="task.progress"
-          :color="task.color"
-          :tasks="task.tasks"
-          @openTaskModal="activeTask = $event"
+          v-for="groupedTask of tasksGrouppedByStatus"
+          :key="groupedTask.title"
+          :title="groupedTask.title"
+          :progress="groupedTask.progress"
+          :color="groupedTask.color"
           @addNewTask="tasks.unshift($event)"
-        />
+        >
+          <SingleCard
+            v-for="task of groupedTask.tasks"
+            :key="task.id"
+            :task="task"
+            draggable="true"
+            @openTaskModal="activeTask = $event"
+          />
+        </DragColumn>
       </ul>
       <TaskModal
         :show="!!activeTask"
