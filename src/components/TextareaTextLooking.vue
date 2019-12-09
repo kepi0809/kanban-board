@@ -7,7 +7,13 @@
         rows="3"
         :value="value"
         placeholder="Description …"
-        v-on="{ ...$listeners, input: resize }"
+        v-on="{
+          ...$listeners,
+          input: (e) => {
+            updateInput(e)
+            resize(e)
+          },
+        }"
       />
     </template>
   </ResizeAuto>
@@ -19,8 +25,7 @@ export default {
   components: { ResizeAuto },
   props: { value: { type: String, default: '' } },
   methods: {
-    updateInput({ target: { value } }, resize) {
-      resize()
+    updateInput({ target: { value } }) {
       this.$emit('input', value)
     },
   },

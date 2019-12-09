@@ -48,7 +48,10 @@
         placeholder="Title … "
         @input="updateTaskTitle"
       />
-      <TextAreaTextLooking :value="task.description" />
+      <TextAreaTextLooking
+        :value="task.description"
+        @input="updateTaskDescription"
+      />
     </article>
   </ModalDialog>
 </template>

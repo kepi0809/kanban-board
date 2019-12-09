@@ -1,11 +1,11 @@
 <template>
-  <HandleDragEvents
-    :backlogTasks="backlogTasks"
-    :inProgressTasks="inProgressTasks"
-    :doneTasks="doneTasks"
-    @updateTaskByKey="updateTaskByKey"
-  >
-    <div class="drag-container">
+  <div class="drag-container">
+    <HandleDragEvents
+      :backlogTasks="backlogTasks"
+      :inProgressTasks="inProgressTasks"
+      :doneTasks="doneTasks"
+      @updateTaskByKey="updateTaskByKey"
+    >
       <ul class="drag-list">
         <DragColumn
           v-for="groupedTask of tasksGrouppedByStatus"
@@ -24,19 +24,18 @@
           />
         </DragColumn>
       </ul>
-      <TaskModal
-        :show="!!activeTask"
-        :task="activeTask"
-        @dismiss="activeTask = null"
-        @updateTaskByKey="updateTaskByKey($event)"
-        @removeTaskById="removeTaskById"
-      />
-    </div>
-  </HandleDragEvents>
+    </HandleDragEvents>
+    <TaskModal
+      :show="!!activeTask"
+      :task="activeTask"
+      @dismiss="activeTask = null"
+      @updateTaskByKey="updateTaskByKey($event)"
+      @removeTaskById="removeTaskById"
+    />
+  </div>
 </template>
 
 <script>
-/* eslint-disable no-console, no-unused-vars, vue/no-unused-components  */
 import DragColumn from '@/components/DragColumn.vue'
 import SingleCard from '@/components/SingleCard.vue'
 import TaskModal from '@/components/TaskModal.vue'
@@ -45,7 +44,7 @@ import HandleDragEvents from '@/components/util/HandleDragEvents.vue'
 export default {
   components: {
     DragColumn,
-    SingleCard,
+    SingleCard, // eslint-disable-line
     TaskModal,
     HandleDragEvents,
   },

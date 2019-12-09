@@ -111,81 +111,81 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets';
+
 .search-select {
   position: relative;
-}
-.search-select-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  text-align: left;
-  display: block;
-  width: 100%;
-  border-width: 1px;
-  padding: 0.5rem 0.75rem;
-  background-color: #fff;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.search-select-placeholder {
-  color: #8795a1;
-}
-.search-select.is-active .search-select-input {
-  -webkit-box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.5);
-  box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.5);
-}
-.search-select-dropdown {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  position: absolute;
-  right: 0;
-  left: 0;
-  background-color: #3d4852;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  z-index: 50;
-}
-.search-select-search {
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
-  top: -500rem;
-  left: -500rem;
-}
-.search-select-options {
-  list-style: none;
-  padding: 0;
-  position: relative;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  max-height: 14rem;
-}
-.search-select-option {
-  padding: 0.125rem 0.25rem;
-  font-size: 0.5rem;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.search-select-option:hover {
-  background-color: #606f7b;
-}
-.search-select-option.is-active,
-.search-select-option.is-active:hover {
-  background-color: #3490dc;
-}
-.search-select-empty {
-  padding: 0.5rem 0.75rem;
-  color: #b8c2cc;
+  &-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: left;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    padding: $spacing-2 $spacing-3;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  &-placeholder {
+    color: $background-gray;
+  }
+
+  &.is-active .search-select-input {
+    box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.5);
+  }
+  &-dropdown {
+    margin-top: $spacing-1;
+    margin-bottom: $spacing-1;
+    position: absolute;
+    right: 0;
+    left: 0;
+    background-color: $text-dark;
+    padding: $spacing-2;
+    border-radius: 0.25rem;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    z-index: 50;
+  }
+  &-search {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    top: -500rem;
+    left: -500rem;
+  }
+  &-options {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 14rem;
+  }
+
+  &-option {
+    padding: $spacing-1 / 2 $spacing-1;
+    font-size: $spacing-2;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    &:hover {
+      background-color: darken($background-gray, 20);
+    }
+
+    &.is-active,
+    &.is-active:hover {
+      background-color: $background-blue;
+    }
+  }
 }
 </style>
