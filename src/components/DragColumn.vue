@@ -11,7 +11,6 @@
         class="drag-item"
         @click="
           listeners.addNewTask({
-            id: props.tasks.length + 1,
             title: '',
             description: '',
             progress: { value: props.progress, title: 'backlog' },
@@ -23,7 +22,6 @@
       </li>
       <SingleCard
         v-for="task of props.tasks"
-        :id="task.id"
         :key="task.id"
         :task="task"
         draggable="true"
